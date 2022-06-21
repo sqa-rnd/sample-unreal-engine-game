@@ -13,5 +13,6 @@ UCLASS()
 class SAMPLEGAME_API ASampleGameGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+	ASampleGameGameModeBase();
 };
