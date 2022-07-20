@@ -199,6 +199,27 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 	];
 }
 
+// Callback for checking a radio button.
+void  SSettingsMenuWidget::HandleRadioButtonCheckStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioThatChanged)
+{
+	if (NewRadioState == ECheckBoxState::Checked)
+	{
+		CurrentRadioChoice = RadioThatChanged;
+	}
+}
+
+ECheckBoxState SSettingsMenuWidget::HandleRadioButtonIsChecked(ERadioChoice ButtonId) const
+{
+	return (CurrentRadioChoice == ButtonId)
+			   ? ECheckBoxState::Checked
+			   : ECheckBoxState::Unchecked;
+}
+
+void  SSettingsMenuWidget::HandleTextComboBoxSelectionChanged (TSharedPtr<FString> NewSelection, ESelectInfo::Type SelectInfo)
+{
+		
+}
+
 FReply SSettingsMenuWidget::OnBackClicked()
 {
 	if (OwningHUD.IsValid())
