@@ -76,6 +76,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				.Padding(ButtonPadding)
 				[
 					SNew(SButton)
+					.OnClicked(this, &SMainMenuWidget::OnSettingsClicked)
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
@@ -108,6 +109,18 @@ FReply SMainMenuWidget::OnPlayClicked() const
 	if(OwningHUD.IsValid())
 	{
 		OwningHUD->RemoveMenu();
+	}
+	
+	return FReply::Handled();
+}
+
+
+FReply SMainMenuWidget::OnSettingsClicked() const
+{
+	if(OwningHUD.IsValid())
+	{
+		OwningHUD->RemoveMenu();
+		OwningHUD->ShowSettingsMenu();
 	}
 	
 	return FReply::Handled();

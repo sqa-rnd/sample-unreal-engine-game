@@ -18,6 +18,7 @@ protected:
 
 	TSharedPtr<class SMainMenuWidget> MenuWidget;
 	TSharedPtr<class SWidget> MenuWidgetContainer;
+	TSharedPtr<class SSettingsMenuWidget> SettingsMenuWidget;
 
 	virtual void BeginPlay() override;
 
@@ -25,4 +26,6 @@ public:
 	
 	void ShowMenu();
 	void RemoveMenu();
+	void ShowSettingsMenu();
+	void RemoveSettingsMenu();
 };

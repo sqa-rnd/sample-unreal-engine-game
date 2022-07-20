@@ -20,6 +20,7 @@ public:
 	void Construct(const FArguments& InArgs);
 
 	FReply OnPlayClicked() const;
+	FReply OnSettingsClicked() const;
 	FReply OnQuitClicked() const;
 
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;

@@ -3,6 +3,7 @@
 
 #include "MenuHUD.h"
 #include "SMainMenuWidget.h"
+#include "SSettingsMenuWidget.h"
 #include "Widgets/SWeakWidget.h"
 #include "Engine/Engine.h"
 
@@ -34,6 +35,36 @@ void AMenuHUD::RemoveMenu()
 	if(GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
 		GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
+
+		if(PlayerOwner)
+		{
+			PlayerOwner->bShowMouseCursor = false;
+			PlayerOwner->SetInputMode(FInputModeGameOnly());
+		}
+	}
+}
+
+void AMenuHUD::ShowSettingsMenu()
+{
+	if(GEngine && GEngine->GameViewport)
+	{
+		SettingsMenuWidget = SNew(SSettingsMenuWidget).OwningHUD(this);
+		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(MenuWidgetContainer, SWeakWidget)
+			.PossiblyNullContent(SettingsMenuWidget.ToSharedRef()));
+
+		if(PlayerOwner)
+		{
+			PlayerOwner->bShowMouseCursor = true;
+			PlayerOwner->SetInputMode(FInputModeUIOnly());
+		}
+	}
+}
+
+void AMenuHUD::RemoveSettingsMenu()
+{
+	if(GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
+	{
+		GEngine->GameViewport->RemoveViewportWidgetContent(SettingsMenuWidget.ToSharedRef());
 
 		if(PlayerOwner)
 		{
