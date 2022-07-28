@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "SlateBasics.h"
 #include "Widgets/Input/STextComboPopup.h"
+#include "SaveSettings.h"
+#include "Kismet/GameplayStatics.h"
 
 class SSettingsMenuWidget : public SCompoundWidget
 {
@@ -18,8 +20,23 @@ public:
 	virtual bool SupportsKeyboardFocus() const override { return true; }
 
 private:
+	// Slot name for settings file
+	FString SaveSlotName = TEXT("Settings");
 	
+	// Hold editable text box element
+	TSharedPtr<SEditableTextBox> EditableTextBox;
+	
+	// Hold text combo box element
 	TSharedPtr<STextComboBox> TextComboBox;
+
+	// Hold list of checkbox elements
+	TArray<TSharedPtr<SCheckBox>> CheckBoxes;
+
+	// Hold list of radio button elements
+	TArray<TSharedPtr<SCheckBox>> RadioButtons;
+
+	// Hold slider element
+	TSharedPtr<SSlider> Slider;
 	
 	// Radio button options
 	enum ERadioChoice
@@ -34,6 +51,21 @@ private:
 
 	// Back button callback
 	FReply OnBackClicked();
+
+	// Save button callback
+	FReply OnSaveClicked();
+
+	// Save settings main method 
+	void SaveSettings();
+
+	// Callback for settings save
+	void LogSaveSettings(const FString& SlotName, const int32 UserIndex, bool bSuccess);
+
+	// Load settings main method
+	void LoadSettings();
+
+	// Callback for load settings, applies values from save file to widgets
+	void ApplySettings(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData);
 
 	// Callback for checking a radio button
 	void HandleRadioButtonCheckStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioThatChanged);
