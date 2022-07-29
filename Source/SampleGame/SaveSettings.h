@@ -26,6 +26,9 @@ public:
 	FText EditableTextBoxValue;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
+	FString TextComboBoxValue;
+
+	UPROPERTY(VisibleAnywhere, Category = Basic)
 	TArray<bool> CheckBoxesState;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)

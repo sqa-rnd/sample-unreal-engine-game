@@ -29,8 +29,8 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 	CheckBoxes.SetNum(3);
 	RadioButtons.SetNum(3);
 
-	TArray<TSharedPtr<FString>> TextComboBoxOptions;
-	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 1"))));
+	TextComboBoxSelectedItem = MakeShareable(new FString(TEXT("Option 1")));
+	TextComboBoxOptions.Add(TextComboBoxSelectedItem);
 	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 2"))));
 	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 3"))));
 
@@ -77,7 +77,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					.Font(ButtonTextStyle)
 					.OptionsSource(&TextComboBoxOptions)
 					.OnSelectionChanged(this, &SSettingsMenuWidget::HandleTextComboBoxSelectionChanged)
-					.InitiallySelectedItem(TextComboBoxOptions.Top())
+					.InitiallySelectedItem(TextComboBoxSelectedItem)
 					.AddMetaData(FDriverMetaData::Id("ComboBox"))
 			]
 			+ SVerticalBox::Slot()
@@ -236,9 +236,12 @@ ECheckBoxState SSettingsMenuWidget::HandleRadioButtonIsChecked(ERadioChoice Butt
 		       : ECheckBoxState::Unchecked;
 }
 
+// Callback for selection changes in the STextComboBox
 void SSettingsMenuWidget::HandleTextComboBoxSelectionChanged(TSharedPtr<FString> NewSelection,
                                                              ESelectInfo::Type SelectInfo)
 {
+	TextComboBoxSelectedItem = NewSelection;
+	// some logic
 }
 
 FReply SSettingsMenuWidget::OnBackClicked()
@@ -273,6 +276,8 @@ void SSettingsMenuWidget::SaveSettings()
 		SaveSettingsInstance->SaveSlotName = SaveSlotName;
 		// Text field
 		SaveSettingsInstance->EditableTextBoxValue = EditableTextBox.Get()->GetText();
+		// Text combo box
+		SaveSettingsInstance->TextComboBoxValue = *TextComboBoxSelectedItem.Get();
 		// Checkboxes
 		for (int i = 0; i < CheckBoxes.Num(); i++)
 		{
@@ -313,6 +318,19 @@ void SSettingsMenuWidget::ApplySettings(const FString& SlotName, const int32 Use
 		UE_LOG(LogTemp, Warning, TEXT("SAVED DATA HAS BEEN LOADED FROM SLOT: %s"), *SlotName);
 		// Set text field value
 		EditableTextBox.Get()->SetText(LoadedSettings->EditableTextBoxValue);
+		// Set text combo box option
+		if (!LoadedSettings->TextComboBoxValue.IsEmpty())
+		{
+			for (int i = 0; i < TextComboBoxOptions.Num(); i++)
+			{
+				if (*TextComboBoxOptions[i].Get() == LoadedSettings->TextComboBoxValue)
+				{
+					TextComboBoxSelectedItem = TextComboBoxOptions[i];
+					break;
+				}
+			}
+			TextComboBox.Get()->SetSelectedItem(TextComboBoxSelectedItem);
+		}
 		// Set checkboxes state
 		if (LoadedSettings->CheckBoxesState.IsValidIndex(CheckBoxes.Num() - 1))
 		{

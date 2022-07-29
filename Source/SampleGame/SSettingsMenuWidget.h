@@ -29,6 +29,12 @@ private:
 	// Hold text combo box element
 	TSharedPtr<STextComboBox> TextComboBox;
 
+	// Hold the text options for the STextComboBox
+	TArray<TSharedPtr<FString>> TextComboBoxOptions;
+
+	// Hold the selected item of the STextComboBox
+	TSharedPtr<FString> TextComboBoxSelectedItem;
+
 	// Hold list of checkbox elements
 	TArray<TSharedPtr<SCheckBox>> CheckBoxes;
 
