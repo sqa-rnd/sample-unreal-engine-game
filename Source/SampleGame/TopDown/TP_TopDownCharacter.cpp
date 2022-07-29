@@ -88,3 +88,17 @@ void ATP_TopDownCharacter::Tick(float DeltaSeconds)
 		}
 	}
 }
+
+void ATP_TopDownCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp)
+{
+}
+
+// void ATP_TopDownCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp)
+// {
+// 	if (OtherActor && (OtherActor != this) && OtherComp) 
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
+// 			FString::Printf(TEXT("Overlap Begin: %s"), ToCStr(OtherActor->GetClass()->GetName())));
+// 	}
+// } 

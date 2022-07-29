@@ -224,8 +224,8 @@ FReply SSettingsMenuWidget::OnBackClicked()
 {
 	if (OwningHUD.IsValid())
 	{
-		OwningHUD->RemoveSettingsMenu();
-		OwningHUD->ShowMenu();
+		OwningHUD->HideSettingsMenu();
+		OwningHUD->ShowMainMenu();
 	}
 
 	return FReply::Handled();

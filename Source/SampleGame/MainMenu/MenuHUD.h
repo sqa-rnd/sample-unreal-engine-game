@@ -24,8 +24,8 @@ protected:
 
 public:
 	
-	void ShowMenu();
-	void RemoveMenu();
+	void ShowMainMenu();
+	void HideMainMenu();
 	void ShowSettingsMenu();
-	void RemoveSettingsMenu();
+	void HideSettingsMenu();
 };

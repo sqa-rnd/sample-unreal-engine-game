@@ -11,10 +11,10 @@ void AMenuHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ShowMenu();
+	ShowMainMenu();
 }
 
-void AMenuHUD::ShowMenu()
+void AMenuHUD::ShowMainMenu()
 {
 	if(GEngine && GEngine->GameViewport)
 	{
@@ -22,25 +22,25 @@ void AMenuHUD::ShowMenu()
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(MenuWidgetContainer, SWeakWidget)
 			.PossiblyNullContent(MenuWidget.ToSharedRef()));
 
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = true;
-			PlayerOwner->SetInputMode(FInputModeUIOnly());
-		}
+		// if(PlayerOwner)
+		// {
+		// 	PlayerOwner->bShowMouseCursor = true;
+		// 	PlayerOwner->SetInputMode(FInputModeUIOnly());
+		// }
  	}
 }
 
-void AMenuHUD::RemoveMenu()
+void AMenuHUD::HideMainMenu()
 {
 	if(GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
 		GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
 
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = false;
-			PlayerOwner->SetInputMode(FInputModeGameOnly());
-		}
+		// if(PlayerOwner)
+		// {
+		// 	PlayerOwner->bShowMouseCursor = false;
+		// 	PlayerOwner->SetInputMode(FInputModeGameOnly());
+		// }
 	}
 }
 
@@ -52,24 +52,24 @@ void AMenuHUD::ShowSettingsMenu()
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(MenuWidgetContainer, SWeakWidget)
 			.PossiblyNullContent(SettingsMenuWidget.ToSharedRef()));
 
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = true;
-			PlayerOwner->SetInputMode(FInputModeUIOnly());
-		}
+		// if(PlayerOwner)
+		// {
+		// 	PlayerOwner->bShowMouseCursor = true;
+		// 	PlayerOwner->SetInputMode(FInputModeUIOnly());
+		// }
 	}
 }
 
-void AMenuHUD::RemoveSettingsMenu()
+void AMenuHUD::HideSettingsMenu()
 {
 	if(GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
 		GEngine->GameViewport->RemoveViewportWidgetContent(SettingsMenuWidget.ToSharedRef());
 
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = false;
-			PlayerOwner->SetInputMode(FInputModeGameOnly());
-		}
+		// if(PlayerOwner)
+		// {
+		// 	PlayerOwner->bShowMouseCursor = false;
+		// 	PlayerOwner->SetInputMode(FInputModeGameOnly());
+		// }
 	}
 }

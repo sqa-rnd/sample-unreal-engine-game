@@ -3,6 +3,7 @@
 #include "TP_TopDownGameMode.h"
 #include "TP_TopDownPlayerController.h"
 #include "TP_TopDownCharacter.h"
+#include "UI/GameHUD.h"
 #include "UObject/ConstructorHelpers.h"
 
 ATP_TopDownGameMode::ATP_TopDownGameMode()
@@ -16,4 +17,6 @@ ATP_TopDownGameMode::ATP_TopDownGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	HUDClass = AGameHUD::StaticClass();
 }

@@ -120,7 +120,7 @@ FReply SMainMenuWidget::OnSettingsClicked() const
 {
 	if(OwningHUD.IsValid())
 	{
-		OwningHUD->RemoveMenu();
+		OwningHUD->HideMainMenu();
 		OwningHUD->ShowSettingsMenu();
 	}
 	

@@ -6,6 +6,7 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "TP_TopDownCharacter.h"
 #include "Engine/World.h"
+#include "UI/GameHUD.h"
 
 ATP_TopDownPlayerController::ATP_TopDownPlayerController()
 {
@@ -37,6 +38,8 @@ void ATP_TopDownPlayerController::SetupInputComponent()
 	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATP_TopDownPlayerController::MoveToTouchLocation);
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &ATP_TopDownPlayerController::OnResetVR);
+
+	InputComponent->BindAction("OpenPauseMenu", IE_Pressed, this, &ATP_TopDownPlayerController::OpenPauseMenu);
 }
 
 void ATP_TopDownPlayerController::OnResetVR()
@@ -109,4 +112,12 @@ void ATP_TopDownPlayerController::OnSetDestinationReleased()
 {
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
+}
+
+void ATP_TopDownPlayerController::OpenPauseMenu()
+{
+	if(AGameHUD* GameHUD = Cast<AGameHUD>(GetHUD()))
+	{
+		GameHUD->ShowPauseMenu();
+	}
 }
