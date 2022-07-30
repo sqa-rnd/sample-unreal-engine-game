@@ -20,11 +20,11 @@ void AGameHUD::ShowPauseMenu()
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(WidgetContainer, SWeakWidget)
 			.PossiblyNullContent(PauseMenuWidget.ToSharedRef()));
 
-		// if(PlayerOwner)
-		// {
-		// 	PlayerOwner->bShowMouseCursor = true;
-		// 	PlayerOwner->SetInputMode(FInputModeUIOnly());
-		// }
+		if(PlayerOwner)
+		{
+			PlayerOwner->bShowMouseCursor = true;
+			PlayerOwner->SetInputMode(FInputModeUIOnly());
+		}
 	}
 }
 

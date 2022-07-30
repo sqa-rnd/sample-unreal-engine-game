@@ -19,4 +19,6 @@ public:
 	void Construct(const FArguments& InArgs);
 
 	TWeakObjectPtr<class AGameHUD> OwningHUD;
+
+	int32 Score;
 };
