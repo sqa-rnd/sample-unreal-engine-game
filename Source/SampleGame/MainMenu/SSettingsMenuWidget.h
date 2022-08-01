@@ -3,7 +3,6 @@
 #include "CoreMinimal.h"
 #include "SlateBasics.h"
 #include "Widgets/Input/STextComboPopup.h"
-#include "SaveSettings.h"
 #include "Kismet/GameplayStatics.h"
 
 class SSettingsMenuWidget : public SCompoundWidget

@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SSettingsMenuWidget.h"
 #include "GameFramework/SaveGame.h"
 #include "SaveSettings.generated.h"
 
