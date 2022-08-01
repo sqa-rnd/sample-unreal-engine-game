@@ -26,8 +26,11 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 
 	FSlateRenderTransform Scale = FSlateRenderTransform(2);
 
-	TArray<TSharedPtr<FString>> TextComboBoxOptions;
-	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 1"))));
+	CheckBoxes.SetNum(3);
+	RadioButtons.SetNum(3);
+
+	TextComboBoxSelectedItem = MakeShareable(new FString(TEXT("Option 1")));
+	TextComboBoxOptions.Add(TextComboBoxSelectedItem);
 	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 2"))));
 	TextComboBoxOptions.Add(MakeShareable(new FString(TEXT("Option 3"))));
 
@@ -60,7 +63,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 			+ SVerticalBox::Slot()
 			.Padding(ButtonPadding)
 			[
-				SNew(SEditableTextBox)
+				SAssignNew(EditableTextBox, SEditableTextBox)
 				.Font(ButtonTextStyle)
 				.AddMetaData(FDriverMetaData::Id("TextInputField"))
 			]
@@ -74,7 +77,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					.Font(ButtonTextStyle)
 					.OptionsSource(&TextComboBoxOptions)
 					.OnSelectionChanged(this, &SSettingsMenuWidget::HandleTextComboBoxSelectionChanged)
-					.InitiallySelectedItem(TextComboBoxOptions.Top())
+					.InitiallySelectedItem(TextComboBoxSelectedItem)
 					.AddMetaData(FDriverMetaData::Id("ComboBox"))
 			]
 			+ SVerticalBox::Slot()
@@ -86,7 +89,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					SNew(SVerticalBox)
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(CheckBoxes[0], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox01"))
 						[
@@ -98,7 +101,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					]
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(CheckBoxes[1], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox02"))
 						[
@@ -110,7 +113,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					]
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(CheckBoxes[2], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox03"))
 						[
@@ -127,7 +130,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					SNew(SVerticalBox)
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(RadioButtons[0], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio0)
@@ -142,7 +145,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					]
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(RadioButtons[1], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio1)
@@ -157,7 +160,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					]
 					+ SVerticalBox::Slot()
 					[
-						SNew(SCheckBox)
+						SAssignNew(RadioButtons[2], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio2)
@@ -175,7 +178,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 			// Slider
 			+ SVerticalBox::Slot()
 			[
-				SNew(SSlider)
+				SAssignNew(Slider, SSlider)
 				.Orientation(Orient_Horizontal)
 				.Value(0.5f)
 				.AddMetaData(FDriverMetaData::Id("Slider"))
@@ -195,12 +198,30 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					.AddMetaData(FDriverMetaData::Id("BackButton_Text"))
 				]
 			]
+			+ SVerticalBox::Slot()
+			.Padding(ButtonPadding)
+			[
+				SNew(SButton)
+				.OnClicked(this, &SSettingsMenuWidget::OnSaveClicked)
+				.VAlign(VAlign_Center)
+				.AddMetaData(FDriverMetaData::Id("SaveButton"))
+				[
+					SNew(STextBlock)
+					.Font(ButtonTextStyle)
+					.Text(LOCTEXT("SaveSettings", "Save"))
+					.Justification(ETextJustify::Center)
+					.AddMetaData(FDriverMetaData::Id("SaveButton_Text"))
+				]
+			]
 		]
 	];
+
+	this->LoadSettings();
 }
 
 // Callback for checking a radio button.
-void  SSettingsMenuWidget::HandleRadioButtonCheckStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioThatChanged)
+void SSettingsMenuWidget::HandleRadioButtonCheckStateChanged(ECheckBoxState NewRadioState,
+                                                             ERadioChoice RadioThatChanged)
 {
 	if (NewRadioState == ECheckBoxState::Checked)
 	{
@@ -211,13 +232,16 @@ void  SSettingsMenuWidget::HandleRadioButtonCheckStateChanged(ECheckBoxState New
 ECheckBoxState SSettingsMenuWidget::HandleRadioButtonIsChecked(ERadioChoice ButtonId) const
 {
 	return (CurrentRadioChoice == ButtonId)
-			   ? ECheckBoxState::Checked
-			   : ECheckBoxState::Unchecked;
+		       ? ECheckBoxState::Checked
+		       : ECheckBoxState::Unchecked;
 }
 
-void  SSettingsMenuWidget::HandleTextComboBoxSelectionChanged (TSharedPtr<FString> NewSelection, ESelectInfo::Type SelectInfo)
+// Callback for selection changes in the STextComboBox
+void SSettingsMenuWidget::HandleTextComboBoxSelectionChanged(TSharedPtr<FString> NewSelection,
+                                                             ESelectInfo::Type SelectInfo)
 {
-		
+	TextComboBoxSelectedItem = NewSelection;
+	// some logic
 }
 
 FReply SSettingsMenuWidget::OnBackClicked()
@@ -229,6 +253,106 @@ FReply SSettingsMenuWidget::OnBackClicked()
 	}
 
 	return FReply::Handled();
+}
+
+FReply SSettingsMenuWidget::OnSaveClicked()
+{
+	SaveSettings();
+
+	return FReply::Handled();
+}
+
+void SSettingsMenuWidget::SaveSettings()
+{
+	if (USaveSettings* SaveSettingsInstance = Cast<USaveSettings>(
+		UGameplayStatics::CreateSaveGameObject(USaveSettings::StaticClass())))
+	{
+		// Set up the (optional) delegate. It will be called after save
+		FAsyncSaveGameToSlotDelegate SavedDelegate;
+		// USomeUObjectClass::SaveGameDelegateFunction is a void function that takes the following parameters: const FString& SlotName, const int32 UserIndex, bool bSuccess
+		SavedDelegate.BindRaw(this, &SSettingsMenuWidget::LogSaveSettings);
+
+		// Set data on the savegame object.
+		SaveSettingsInstance->SaveSlotName = SaveSlotName;
+		// Text field
+		SaveSettingsInstance->EditableTextBoxValue = EditableTextBox.Get()->GetText();
+		// Text combo box
+		SaveSettingsInstance->TextComboBoxValue = *TextComboBoxSelectedItem.Get();
+		// Checkboxes
+		for (int i = 0; i < CheckBoxes.Num(); i++)
+		{
+			SaveSettingsInstance->CheckBoxesState.Add(CheckBoxes[i].Get()->IsChecked());
+		}
+		// Radio buttons
+		for (int i = 0; i < RadioButtons.Num(); i++)
+		{
+			SaveSettingsInstance->RadioButtonsState.Add(RadioButtons[i].Get()->IsChecked());
+		}
+		// Slider
+		SaveSettingsInstance->SliderValue = Slider.Get()->GetValue();
+
+		// Start async save process
+		UGameplayStatics::AsyncSaveGameToSlot(SaveSettingsInstance, SaveSlotName, 0, SavedDelegate);
+	}
+}
+
+void SSettingsMenuWidget::LogSaveSettings(const FString& SlotName, const int32 UserIndex, bool bSuccess)
+{
+	UE_LOG(LogTemp, Warning, TEXT("SETTINGS DATA HAS BEEN SAVED: '%hhd' IN SLOT: '%s'"), bSuccess, *SlotName)
+}
+
+void SSettingsMenuWidget::LoadSettings()
+{
+	// Set up the delegate (obligatory)
+	FAsyncLoadGameFromSlotDelegate LoadedDelegate;
+	// USomeUObjectClass::LoadGameDelegateFunction is a void function that takes the following parameters: const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData
+	LoadedDelegate.BindRaw(this, &SSettingsMenuWidget::ApplySettings);
+	// Start async load process
+	UGameplayStatics::AsyncLoadGameFromSlot(SaveSlotName, 0, LoadedDelegate);
+}
+
+void SSettingsMenuWidget::ApplySettings(const FString& SlotName, const int32 UserIndex, USaveGame* LoadedGameData)
+{
+	if (USaveSettings* LoadedSettings = Cast<USaveSettings>(LoadedGameData))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SAVED DATA HAS BEEN LOADED FROM SLOT: %s"), *SlotName);
+		// Set text field value
+		EditableTextBox.Get()->SetText(LoadedSettings->EditableTextBoxValue);
+		// Set text combo box option
+		if (!LoadedSettings->TextComboBoxValue.IsEmpty())
+		{
+			for (int i = 0; i < TextComboBoxOptions.Num(); i++)
+			{
+				if (*TextComboBoxOptions[i].Get() == LoadedSettings->TextComboBoxValue)
+				{
+					TextComboBoxSelectedItem = TextComboBoxOptions[i];
+					break;
+				}
+			}
+			TextComboBox.Get()->SetSelectedItem(TextComboBoxSelectedItem);
+		}
+		// Set checkboxes state
+		if (LoadedSettings->CheckBoxesState.IsValidIndex(CheckBoxes.Num() - 1))
+		{
+			for (int i = 0; i < CheckBoxes.Num(); i++)
+			{
+				CheckBoxes[i].Get()->SetIsChecked(LoadedSettings->CheckBoxesState[i]);
+			}
+		}
+		// Set radiobutton choice
+		if (LoadedSettings->RadioButtonsState.IsValidIndex(RadioButtons.Num() - 1))
+		{
+			for (int i = 0; i < RadioButtons.Num(); i++)
+			{
+				if (LoadedSettings->RadioButtonsState[i])
+				{
+					CurrentRadioChoice = static_cast<ERadioChoice>(i);
+				}
+			}
+		}
+		// Set slider value
+		Slider.Get()->SetValue(LoadedSettings->SliderValue);
+	}
 }
 
 #undef LOCTEXT_NAMESPACE
