@@ -5,18 +5,20 @@
 
 #include <string>
 
+#include "GameHUD.h"
 #include "SlateOptMacros.h"
+#include "Kismet/GameplayStatics.h"
+#include "SampleGame/TopDown/TP_TopDownCharacter.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SampleGame"
 
+const FText ScoreLabelText = LOCTEXT("ScoreLabel", "Score: {0}");
+
 void SGameUIWidget::Construct(const FArguments& InArgs)
 {
 	OwningHUD = InArgs._OwningHUD;
-	Score = 10;
-
-	const FText ScoreLabelText = LOCTEXT("ScoreLabel", "Score: {0}");
 
 	FSlateFontInfo TextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
 	TextStyle.Size = 30.f;
@@ -36,11 +38,21 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 			[
 				SNew(STextBlock)
 				.Font(TextStyle)
-				.Text(FText::Format(ScoreLabelText, FText::AsNumber(Score)))
+				.Text(this, &SGameUIWidget::GetCurrentScore)
 				.Justification(ETextJustify::Left)
+				.ForceVolatile(true)
 			]
 		]
 	];
+}
+
+FText SGameUIWidget::GetCurrentScore() const
+{
+	UWorld* MyWorld = GEngine->GetWorldContextFromGameViewport(GEngine->GameViewport)->World();
+	ACharacter* Player = UGameplayStatics::GetPlayerCharacter(MyWorld,0);
+	ATP_TopDownCharacter* TopDownCharacter = Cast<ATP_TopDownCharacter>(Player);
+
+	return FText::Format(ScoreLabelText, FText::AsNumber(TopDownCharacter->GetScore()));
 }
 
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

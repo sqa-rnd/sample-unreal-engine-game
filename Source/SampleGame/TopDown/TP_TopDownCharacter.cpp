@@ -16,6 +16,7 @@ ATP_TopDownCharacter::ATP_TopDownCharacter()
 {
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ATP_TopDownCharacter::OnOverlapBegin);
 
 	// Don't rotate character to camera direction
 	bUseControllerRotationPitch = false;
@@ -55,6 +56,8 @@ ATP_TopDownCharacter::ATP_TopDownCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	Score = 0;
 }
 
 void ATP_TopDownCharacter::Tick(float DeltaSeconds)
@@ -89,16 +92,16 @@ void ATP_TopDownCharacter::Tick(float DeltaSeconds)
 	}
 }
 
-void ATP_TopDownCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp)
+int32 ATP_TopDownCharacter::GetScore()
 {
+	return Score;
 }
 
-// void ATP_TopDownCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp)
-// {
-// 	if (OtherActor && (OtherActor != this) && OtherComp) 
-// 	{
-// 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
-// 			FString::Printf(TEXT("Overlap Begin: %s"), ToCStr(OtherActor->GetClass()->GetName())));
-// 	}
-// } 
+void ATP_TopDownCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
+	class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp) 
+	{
+		Score++;
+	}
+} 

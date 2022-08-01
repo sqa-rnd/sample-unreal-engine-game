@@ -5,6 +5,7 @@
 
 #include "SGameUIWidget.h"
 #include "SPauseMenuWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 void AGameHUD::BeginPlay()
 {
