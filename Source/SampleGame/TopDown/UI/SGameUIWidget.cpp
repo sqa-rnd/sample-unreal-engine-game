@@ -7,6 +7,7 @@
 
 #include "GameHUD.h"
 #include "SlateOptMacros.h"
+#include "Framework/MetaData/DriverMetaData.h"
 #include "Kismet/GameplayStatics.h"
 #include "SampleGame/TopDown/TP_TopDownCharacter.h"
 
@@ -40,6 +41,7 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 				.Font(TextStyle)
 				.Text(this, &SGameUIWidget::GetCurrentScore)
 				.Justification(ETextJustify::Left)
+				.AddMetaData(FDriverMetaData::Id("Score"))
 				.ForceVolatile(true)
 			]
 		]
