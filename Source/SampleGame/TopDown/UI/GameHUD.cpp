@@ -7,10 +7,12 @@
 #include "SPauseMenuWidget.h"
 #include "Kismet/GameplayStatics.h"
 
+
 void AGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
 	ShowGameUI();
+	SetInputModeToGame();
 }
 
 void AGameHUD::ShowPauseMenu()
@@ -21,11 +23,7 @@ void AGameHUD::ShowPauseMenu()
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(WidgetContainer, SWeakWidget)
 			.PossiblyNullContent(PauseMenuWidget.ToSharedRef()));
 
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = true;
-			PlayerOwner->SetInputMode(FInputModeUIOnly());
-		}
+		SetInputModeToUI();
 	}
 }
 
@@ -34,12 +32,7 @@ void AGameHUD::HidePauseMenu()
 	if(GEngine && GEngine->GameViewport && WidgetContainer.IsValid())
 	{
 		GEngine->GameViewport->RemoveViewportWidgetContent(WidgetContainer.ToSharedRef());
-
-		if(PlayerOwner)
-		{
-			PlayerOwner->bShowMouseCursor = false;
-			PlayerOwner->SetInputMode(FInputModeGameOnly());
-		}
+		SetInputModeToGame();
 	}
 }
 
@@ -52,5 +45,23 @@ void AGameHUD::ShowGameUI()
 		GameUIWidget = SNew(SGameUIWidget).OwningHUD(this);
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(WidgetContainer, SWeakWidget)
 			.PossiblyNullContent(GameUIWidget.ToSharedRef()));
+	}
+}
+
+void AGameHUD::SetInputModeToUI()
+{
+	if(PlayerOwner)
+	{
+		PlayerOwner->bShowMouseCursor = true;
+		PlayerOwner->SetInputMode(FInputModeUIOnly());
+	}
+}
+
+void AGameHUD::SetInputModeToGame()
+{
+	if(PlayerOwner)
+	{
+		PlayerOwner->bShowMouseCursor = false;
+		PlayerOwner->SetInputMode(FInputModeGameOnly());
 	}
 }

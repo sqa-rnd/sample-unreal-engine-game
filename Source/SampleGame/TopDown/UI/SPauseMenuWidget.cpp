@@ -6,6 +6,7 @@
 #include "GameHUD.h"
 #include "SlateOptMacros.h"
 #include "Framework/MetaData/DriverMetaData.h"
+#include "Kismet/GameplayStatics.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
@@ -99,18 +100,24 @@ FReply SPauseMenuWidget::OnResumeClicked() const
 	{
 		OwningHUD->HidePauseMenu();
 	}
+	
 	return FReply::Handled();
 }
 
 FReply SPauseMenuWidget::OnRestartClicked() const
 {
-	//TODO reload level
+	UWorld* MyWorld = GEngine->GetWorldContextFromGameViewport(GEngine->GameViewport)->World();
+	OwningHUD->HidePauseMenu();
+	UGameplayStatics::OpenLevel(MyWorld, "TopDownExampleMap");
+	
 	return FReply::Handled();
 }
 
 FReply SPauseMenuWidget::OnQuitClicked() const
 {
-	//TODO load menu level
+	UWorld* MyWorld = GEngine->GetWorldContextFromGameViewport(GEngine->GameViewport)->World();
+	UGameplayStatics::OpenLevel(MyWorld, "MainMenu");
+	
 	return FReply::Handled();
 }
 

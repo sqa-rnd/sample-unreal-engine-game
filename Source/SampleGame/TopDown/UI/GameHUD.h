@@ -18,8 +18,9 @@ class SAMPLEGAME_API AGameHUD : public AHUD
 public:
 	void ShowPauseMenu();
 	void HidePauseMenu();
-
 	void ShowGameUI();
+	void SetInputModeToUI();
+	void SetInputModeToGame();
 
 	virtual void BeginPlay() override;
 	

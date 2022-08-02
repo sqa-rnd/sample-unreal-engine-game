@@ -28,4 +28,5 @@ public:
 	void HideMainMenu();
 	void ShowSettingsMenu();
 	void HideSettingsMenu();
+	void SetInputModeToUI();
 };

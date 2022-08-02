@@ -10,8 +10,8 @@
 void AMenuHUD::BeginPlay()
 {
 	Super::BeginPlay();
-
 	ShowMainMenu();
+	SetInputModeToUI();
 }
 
 void AMenuHUD::ShowMainMenu()
@@ -47,5 +47,14 @@ void AMenuHUD::HideSettingsMenu()
 	if(GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
 		GEngine->GameViewport->RemoveViewportWidgetContent(SettingsMenuWidget.ToSharedRef());
+	}
+}
+
+void AMenuHUD::SetInputModeToUI()
+{
+	if(PlayerOwner)
+	{
+		PlayerOwner->bShowMouseCursor = true;
+		PlayerOwner->SetInputMode(FInputModeUIOnly());
 	}
 }
