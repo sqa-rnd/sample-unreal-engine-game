@@ -180,6 +180,8 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 				SAssignNew(Slider, SSlider)
 				.Orientation(Orient_Horizontal)
 				.Value(0.5f)
+				.StepSize(0.01)
+				.IndentHandle(true)
 				.AddMetaData(FDriverMetaData::Id("Slider"))
 			]
 			+ SVerticalBox::Slot()
