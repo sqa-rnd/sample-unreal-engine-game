@@ -55,6 +55,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 					.Font(TitleTextStyle)
 					.Text(TitleText)
 					.Justification(ETextJustify::Center)
+					.AddMetaData(FDriverMetaData::Id("MainMenuTitle"))
 				]
 
 				//Play button

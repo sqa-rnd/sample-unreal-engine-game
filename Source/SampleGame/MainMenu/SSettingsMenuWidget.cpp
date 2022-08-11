@@ -68,7 +68,6 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 				.Font(ButtonTextStyle)
 				.AddMetaData(FDriverMetaData::Id("TextInputField"))
 			]
-			// Text Dropdown TODO: doesn't work for now
 			+ SVerticalBox::Slot()
 			  .Padding(0.0f, 5.0f)
 			  .HAlign(HAlign_Fill)
@@ -82,97 +81,96 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 					.AddMetaData(FDriverMetaData::Id("ComboBox"))
 			]
 			+ SVerticalBox::Slot()
+			.HAlign(HAlign_Fill)
 			[
 				SNew(SUniformGridPanel)
+				// Checkboxes 
 				+ SUniformGridPanel::Slot(0, 0)
+				.HAlign(HAlign_Left)
 				[
-					// Checkboxes 
-					SNew(SVerticalBox)
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(CheckBoxes[0], SCheckBox)
+					SAssignNew(CheckBoxes[0], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox01"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("CheckBoxLabel01", "CheckBox 1"))
 							.AddMetaData(FDriverMetaData::Id("CheckBox01_Text"))
-						]
 					]
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(CheckBoxes[1], SCheckBox)
+				]
+				+ SUniformGridPanel::Slot(0, 1)
+				.HAlign(HAlign_Left)
+				[
+					SAssignNew(CheckBoxes[1], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox02"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("CheckBoxLabel02", "CheckBox 2"))
 							.AddMetaData(FDriverMetaData::Id("CheckBox02_Text"))
-						]
 					]
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(CheckBoxes[2], SCheckBox)
+				]
+				+ SUniformGridPanel::Slot(0, 2)
+				.HAlign(HAlign_Left)
+				[
+					SAssignNew(CheckBoxes[2], SCheckBox)
 						.RenderTransform(Scale)
 						.AddMetaData(FDriverMetaData::Id("CheckBox03"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("CheckBoxLabel03", "CheckBox 3"))
 							.AddMetaData(FDriverMetaData::Id("CheckBox03_Text"))
-						]
 					]
 				]
 				// Radio buttons 
 				+ SUniformGridPanel::Slot(1, 0)
+				.HAlign(HAlign_Left)
 				[
-					SNew(SVerticalBox)
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(RadioButtons[0], SCheckBox)
+					SAssignNew(RadioButtons[0], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio0)
 						.OnCheckStateChanged(this, &SSettingsMenuWidget::HandleRadioButtonCheckStateChanged, Radio0)
 						.AddMetaData(FDriverMetaData::Id("RadioGroup_Button01"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("RadioButtonLabel01", "Radio 1"))
 							.AddMetaData(FDriverMetaData::Id("RadioGroup_Button01_Text"))
-						]
 					]
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(RadioButtons[1], SCheckBox)
+				]
+				+ SUniformGridPanel::Slot(1, 1)
+				.HAlign(HAlign_Left)
+				[
+					SAssignNew(RadioButtons[1], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio1)
 						.OnCheckStateChanged(this, &SSettingsMenuWidget::HandleRadioButtonCheckStateChanged, Radio1)
 						.AddMetaData(FDriverMetaData::Id("RadioGroup_Button02"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("RadioButtonLabel02", "Radio 2"))
 							.AddMetaData(FDriverMetaData::Id("RadioGroup_Button02_Text"))
-						]
 					]
-					+ SVerticalBox::Slot()
-					[
-						SAssignNew(RadioButtons[2], SCheckBox)
+				]
+				+ SUniformGridPanel::Slot(1, 2)
+				.HAlign(HAlign_Left)
+				[
+					SAssignNew(RadioButtons[2], SCheckBox)
 						.RenderTransform(Scale)
 						.Style(FCoreStyle::Get(), "RadioButton")
 						.IsChecked(this, &SSettingsMenuWidget::HandleRadioButtonIsChecked, Radio2)
 						.OnCheckStateChanged(this, &SSettingsMenuWidget::HandleRadioButtonCheckStateChanged, Radio2)
 						.AddMetaData(FDriverMetaData::Id("RadioGroup_Button03"))
-						[
-							SNew(STextBlock)
+					[
+						SNew(STextBlock)
 							.Font(CheckBoxTextStyle)
 							.Text(LOCTEXT("RadioButtonLabel03", "Radio 3"))
 							.AddMetaData(FDriverMetaData::Id("RadioGroup_Button03_Text"))
-						]
 					]
 				]
 			]
@@ -182,6 +180,8 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 				SAssignNew(Slider, SSlider)
 				.Orientation(Orient_Horizontal)
 				.Value(0.5f)
+				.StepSize(0.01)
+				.IndentHandle(true)
 				.AddMetaData(FDriverMetaData::Id("Slider"))
 			]
 			+ SVerticalBox::Slot()
