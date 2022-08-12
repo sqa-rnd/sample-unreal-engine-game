@@ -46,6 +46,7 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 					SNew(STextBlock)
 					.Font(TitleTextStyle)
 					.Text(TitleText)
+					.AddMetaData(FDriverMetaData::Id("PauseMenuTitle"))
 					.Justification(ETextJustify::Center)
 				]
 
