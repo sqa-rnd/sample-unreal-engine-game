@@ -62,6 +62,6 @@ void AGameHUD::SetInputModeToGame()
 	if(PlayerOwner)
 	{
 		PlayerOwner->bShowMouseCursor = false;
-		PlayerOwner->SetInputMode(FInputModeGameOnly());
+		PlayerOwner->SetInputMode(FInputModeGameAndUI());
 	}
 }

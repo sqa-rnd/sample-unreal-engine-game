@@ -42,7 +42,6 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 				.Text(this, &SGameUIWidget::GetCurrentScore)
 				.Justification(ETextJustify::Left)
 				.AddMetaData(FDriverMetaData::Id("Score"))
-				.ForceVolatile(true)
 			]
 		]
 	];
