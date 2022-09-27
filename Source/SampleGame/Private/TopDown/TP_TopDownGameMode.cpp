@@ -1,8 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "TP_TopDownGameMode.h"
-#include "TP_TopDownPlayerController.h"
 #include "TP_TopDownCharacter.h"
+#include "TopDown/TP_TopDownPlayerController.h"
 #include "UI/GameHUD.h"
 #include "UObject/ConstructorHelpers.h"
 

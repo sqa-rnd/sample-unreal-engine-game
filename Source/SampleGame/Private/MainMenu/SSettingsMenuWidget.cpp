@@ -2,7 +2,7 @@
 #include "MenuHUD.h"
 #include "Components/OverlaySlot.h"
 #include "Framework/MetaData/DriverMetaData.h"
-#include "SampleGame/SaveSettings.h"
+#include "SampleGame/Private/SaveSettings.h"
 #include "Widgets/Input/STextComboBox.h"
 
 #define LOCTEXT_NAMESPACE "SettingsWidget"

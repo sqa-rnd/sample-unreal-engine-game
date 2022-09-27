@@ -7,7 +7,7 @@
 #include "TP_TopDownPlayerController.generated.h"
 
 UCLASS()
-class ATP_TopDownPlayerController : public APlayerController
+class SAMPLEGAME_API ATP_TopDownPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 

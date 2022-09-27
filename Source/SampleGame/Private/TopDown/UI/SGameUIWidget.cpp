@@ -9,7 +9,7 @@
 #include "SlateOptMacros.h"
 #include "Framework/MetaData/DriverMetaData.h"
 #include "Kismet/GameplayStatics.h"
-#include "SampleGame/TopDown/TP_TopDownCharacter.h"
+#include "SampleGame/Private/TopDown/TP_TopDownCharacter.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 

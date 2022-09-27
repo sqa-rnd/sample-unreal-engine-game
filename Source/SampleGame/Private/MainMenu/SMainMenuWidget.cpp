@@ -64,11 +64,12 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SMainMenuWidget::OnPlayClicked)
+					.AddMetaData(FDriverMetaData::Id("PlayButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(PlayText)
-						.AddMetaData(FDriverMetaData::Id("PlayButton"))
+						.AddMetaData(FDriverMetaData::Id("PlayButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -79,11 +80,12 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SMainMenuWidget::OnSettingsClicked)
+					.AddMetaData(FDriverMetaData::Id("SettingsButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(SettingsText)
-						.AddMetaData(FDriverMetaData::Id("SettingsButton"))
+						.AddMetaData(FDriverMetaData::Id("SettingsButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -94,11 +96,12 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SMainMenuWidget::OnQuitClicked)
+					.AddMetaData(FDriverMetaData::Id("QuitButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(QuitText)
-						.AddMetaData(FDriverMetaData::Id("QuitButton"))
+						.AddMetaData(FDriverMetaData::Id("QuitButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]

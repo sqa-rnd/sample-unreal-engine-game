@@ -55,11 +55,12 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SPauseMenuWidget::OnResumeClicked)
+					.AddMetaData(FDriverMetaData::Id("ResumeButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(ResumeText)
-						.AddMetaData(FDriverMetaData::Id("ResumeButton"))
+						.AddMetaData(FDriverMetaData::Id("ResumeButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -69,11 +70,12 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SPauseMenuWidget::OnRestartClicked)
+					.AddMetaData(FDriverMetaData::Id("RestartButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(RestartText)
-						.AddMetaData(FDriverMetaData::Id("RestartButton"))
+						.AddMetaData(FDriverMetaData::Id("RestartButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -83,11 +85,12 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SButton)
 					.OnClicked(this, &SPauseMenuWidget::OnQuitClicked)
+					.AddMetaData(FDriverMetaData::Id("QuitButton"))
 					[
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(QuitText)
-						.AddMetaData(FDriverMetaData::Id("QuitButton"))
+						.AddMetaData(FDriverMetaData::Id("QuitButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]	
