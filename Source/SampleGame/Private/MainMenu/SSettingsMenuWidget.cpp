@@ -1,6 +1,5 @@
 ﻿#include "SSettingsMenuWidget.h"
 #include "MenuHUD.h"
-#include "Components/OverlaySlot.h"
 #include "Framework/MetaData/DriverMetaData.h"
 #include "SampleGame/Private/SaveSettings.h"
 #include "Widgets/Input/STextComboBox.h"

@@ -4,7 +4,6 @@
 #include "SMainMenuWidget.h"
 
 #include "MenuHUD.h"
-#include "Components/OverlaySlot.h"
 #include "Framework/MetaData/DriverMetaData.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
