@@ -68,7 +68,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(PlayText)
-						.AddMetaData(FDriverMetaData::Id("PlayButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -84,7 +83,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(SettingsText)
-						.AddMetaData(FDriverMetaData::Id("SettingsButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]
@@ -100,7 +98,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						SNew(STextBlock)
 						.Font(ButtonTextStyle)
 						.Text(QuitText)
-						.AddMetaData(FDriverMetaData::Id("QuitButtonText"))
 						.Justification(ETextJustify::Center)
 					]
 				]

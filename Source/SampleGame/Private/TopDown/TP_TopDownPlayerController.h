@@ -13,6 +13,7 @@ class SAMPLEGAME_API ATP_TopDownPlayerController : public APlayerController
 
 public:
 	ATP_TopDownPlayerController();
+	void OpenPauseMenu();
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
@@ -38,8 +39,6 @@ protected:
 	/** Input handlers for SetDestination action. */
 	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
-
-	void OpenPauseMenu();
 };
 
 

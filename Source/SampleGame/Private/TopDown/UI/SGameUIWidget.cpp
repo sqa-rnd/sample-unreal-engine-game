@@ -10,6 +10,7 @@
 #include "Framework/MetaData/DriverMetaData.h"
 #include "Kismet/GameplayStatics.h"
 #include "SampleGame/Private/TopDown/TP_TopDownCharacter.h"
+#include "TopDown/TP_TopDownPlayerController.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
@@ -21,6 +22,11 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 {
 	OwningHUD = InArgs._OwningHUD;
 
+	const FText MenuButtonText = LOCTEXT("InGameMenu", "Menu");
+
+	FSlateFontInfo ButtonTextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
+	ButtonTextStyle.Size = 10.f;
+	
 	FSlateFontInfo TextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
 	TextStyle.Size = 30.f;
 
@@ -30,8 +36,8 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 	[
 	SNew(SOverlay)
 		+ SOverlay::Slot()
-		.HAlign(HAlign_Fill)
-		.VAlign(VAlign_Fill)
+		.HAlign(HAlign_Left)
+		.VAlign(VAlign_Top)
 		.Padding(TextPadding)
 		[
 		SNew(SVerticalBox)
@@ -43,7 +49,21 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 				.Justification(ETextJustify::Left)
 				.AddMetaData(FDriverMetaData::Id("Score"))
 			]
-		]
+			+ SVerticalBox::Slot()
+			.HAlign(HAlign_Left)
+			.VAlign(VAlign_Top)
+			[
+			     SNew(SButton)
+				.OnClicked(this, &SGameUIWidget::OnMenuClicked)
+				.AddMetaData(FDriverMetaData::Id("MenuButton"))
+				[
+					SNew(STextBlock)
+					.Font(ButtonTextStyle)
+					.Text(MenuButtonText)
+					.Justification(ETextJustify::Left)
+				]
+			]
+		] 
 	];
 }
 
@@ -54,6 +74,16 @@ FText SGameUIWidget::GetCurrentScore() const
 	ATP_TopDownCharacter* TopDownCharacter = Cast<ATP_TopDownCharacter>(Player);
 
 	return FText::Format(ScoreLabelText, FText::AsNumber(TopDownCharacter->GetScore()));
+}
+
+FReply SGameUIWidget::OnMenuClicked() const
+{
+	UWorld* MyWorld = GEngine->GetWorldContextFromGameViewport(GEngine->GameViewport)->World();
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(MyWorld,0);
+	ATP_TopDownPlayerController* ATP_PlayerController = Cast<ATP_TopDownPlayerController>(PlayerController);
+	ATP_PlayerController->OpenPauseMenu();
+	
+	return FReply::Handled();
 }
 
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

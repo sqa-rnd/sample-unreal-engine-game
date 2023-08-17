@@ -19,9 +19,8 @@ public:
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 	FText GetCurrentScore() const;
+	FReply OnMenuClicked() const;
 
 	TWeakObjectPtr<class AGameHUD> OwningHUD;
-
-private:
-	//FText static GetCurrentScore();
+	
 };
