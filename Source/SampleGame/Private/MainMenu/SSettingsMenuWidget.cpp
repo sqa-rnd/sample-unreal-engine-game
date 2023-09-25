@@ -190,13 +190,7 @@ void SSettingsMenuWidget::Construct(const FArguments& InArgs)
 			// drag n drop element
 			+ SVerticalBox::Slot()
 			[
-				SAssignNew(Slider, SThemeColorBlock)
-				.Orientation(Orient_Horizontal)
-				.Value(0.5f)
-				.StepSize(0.01)
-				.IndentHandle(true)
-				.Tag("Slider")
-				.AddMetaData(FDriverMetaData::Id("Slider"))
+				
 			]
 			+ SVerticalBox::Slot()
 			.Padding(ButtonPadding)
