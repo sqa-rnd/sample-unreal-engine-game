@@ -25,7 +25,7 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 	const FText MenuButtonText = LOCTEXT("InGameMenu", "Menu");
 
 	FSlateFontInfo ButtonTextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
-	ButtonTextStyle.Size = 10.f;
+	ButtonTextStyle.Size = 20.f;
 	
 	FSlateFontInfo TextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
 	TextStyle.Size = 30.f;
@@ -36,12 +36,13 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 	[
 	SNew(SOverlay)
 		+ SOverlay::Slot()
-		.HAlign(HAlign_Left)
+		.HAlign(HAlign_Fill)
 		.VAlign(VAlign_Top)
 		.Padding(TextPadding)
 		[
-		SNew(SVerticalBox)
-		    + SVerticalBox::Slot()
+		SNew(SHorizontalBox)
+		    + SHorizontalBox::Slot()
+		    .HAlign(HAlign_Left)
 			[
 				SNew(STextBlock)
 				.Font(TextStyle)
@@ -49,9 +50,8 @@ void SGameUIWidget::Construct(const FArguments& InArgs)
 				.Justification(ETextJustify::Left)
 				.AddMetaData(FDriverMetaData::Id("Score"))
 			]
-			+ SVerticalBox::Slot()
-			.HAlign(HAlign_Left)
-			.VAlign(VAlign_Top)
+			+ SHorizontalBox::Slot()
+			.HAlign(HAlign_Right)
 			[
 			     SNew(SButton)
 				.OnClicked(this, &SGameUIWidget::OnMenuClicked)
