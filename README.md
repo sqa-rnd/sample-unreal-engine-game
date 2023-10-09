@@ -1,0 +1,2 @@
+﻿Sample game for testing automation plugin implementation.   
+Ready-to-use builds can be found here: [game builds](https://keywordsstudios-my.sharepoint.com/:f:/g/personal/pavel_zhogolev_sperasoft_com/Eh96qk9tPSFMoWEUGmoz1okBGjsGOm52fs4CbFD2-a3Oiw?e=Ooe1QV)
