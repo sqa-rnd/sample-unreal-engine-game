@@ -92,6 +92,7 @@ void ATP_TopDownCharacter::Tick(float DeltaSeconds)
 	}
 }
 
+UFUNCTION(BlueprintCallable, Category="Character")
 int32 ATP_TopDownCharacter::GetScore()
 {
 	return Score;

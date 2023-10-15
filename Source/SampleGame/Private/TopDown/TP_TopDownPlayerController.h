@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "TP_TopDownPlayerController.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class SAMPLEGAME_API ATP_TopDownPlayerController : public APlayerController
 {
 	GENERATED_BODY()
